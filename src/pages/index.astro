@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { getAllSortedPosts } from '@/utils/getPosts'
+
+const posts = await getAllSortedPosts()
+console.log(posts)
+---
+
+<Layout>
+  <div class='flex flex-col items-center pt-10 text-lg text-blue-400'>
+    {
+      posts.map(post => (
+        <a href={`/posts/${post.id}`}>
+          {' '}
+          <h3 class='mt-4 text-xl font-semibold'>{post.data.title}</h3>
+        </a>
+      ))
+    }
+  </div>
+</Layout>

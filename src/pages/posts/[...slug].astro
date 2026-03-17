@@ -1,0 +1,39 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getAllPosts } from '@/utils/getPosts'
+import { render } from 'astro:content'
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post }
+  }))
+}
+
+const { post } = Astro.props
+
+const { title, description, date } = post.data
+
+const { Content } = await render(post)
+---
+
+<Layout title={title} description={description || title}>
+  <div class='mx-auto max-w-3xl pt-10'>
+    <h2 class='mt-16 mb-8 text-4xl font-bold tracking-tight text-zinc-900'>
+      {title}
+    </h2>
+    <p class='text-zinc-600'>
+      {
+        date.toLocaleString('zh-CN', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        })
+      }
+    </p>
+    <div class='prose'>
+      <Content />
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+@import 'katex/dist/katex.min.css';
+@import './typography.css';
+
+@layer base {
+  body {
+    @apply flex min-h-svh flex-col;
+  }
+}
+
+.prose pre {
+  @apply my-8 overflow-x-auto rounded-lg border border-gray-300 p-6;
+}
+
+.prose pre code {
+  @apply bg-transparent p-0 text-sm;
+  font-feature-settings: normal;
+}

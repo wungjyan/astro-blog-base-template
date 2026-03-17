@@ -1,0 +1,25 @@
+---
+import '../styles/global.css'
+import { SITE } from '@/site.config'
+
+const { title, description } = Astro.props
+const pageTitle = title ? `${title} | ${SITE.title}` : SITE.title
+const pageDescription = description || SITE.description
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <link rel='icon' href='/favicon.ico' />
+    <meta name='generator' content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name='description' content={pageDescription} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
