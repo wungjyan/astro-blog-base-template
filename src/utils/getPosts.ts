@@ -8,7 +8,5 @@ export const getAllPosts = async (): Promise<Post[]> => {
 
 export const getAllSortedPosts = async (): Promise<Post[]> => {
   const posts = await getAllPosts()
-  return posts.sort(
-    (a: Post, b: Post) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
-  )
+  return posts.sort((a: Post, b: Post) => b.data.date.getTime() - a.data.date.getTime())
 }

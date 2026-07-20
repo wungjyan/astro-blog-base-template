@@ -1,6 +1,7 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'astro/config'
+import { unified } from '@astrojs/markdown-remark'
+import tailwindcss from '@tailwindcss/vite'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import { transformerNotationDiff, transformerNotationFocus } from '@shikijs/transformers'
@@ -11,8 +12,11 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   markdown: {
-    remarkPlugins: [remarkMath],
-    rehypePlugins: [rehypeKatex],
+    // Astro 7 defaults to Sätteri. Keep unified for remark/rehype math plugins.
+    processor: unified({
+      remarkPlugins: [remarkMath],
+      rehypePlugins: [rehypeKatex]
+    }),
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: 'github-light', dark: 'github-dark' },
@@ -21,4 +25,4 @@ export default defineConfig({
       transformers: [transformerNotationDiff(), transformerNotationFocus()]
     }
   }
-});
+})
